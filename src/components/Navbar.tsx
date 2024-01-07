@@ -8,7 +8,6 @@ import { buttonVariants } from './ui/button';
 import Cart from './Cart';
 
 const Navbar = () => {
-
 	const user = null;
 
 	return (
