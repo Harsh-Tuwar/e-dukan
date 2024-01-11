@@ -11,6 +11,8 @@ export const Users: CollectionConfig = {
 		{
 			name: 'role',
 			type: 'select',
+			defaultValue: 'user',
+			required: true,
 			options: [
 				{ label: 'Admin', value: 'admin' },
 				{ label: 'User', value: 'user' }
