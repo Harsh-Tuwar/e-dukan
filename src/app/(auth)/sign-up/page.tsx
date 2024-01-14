@@ -33,20 +33,20 @@ const SignupPage = () => {
       if (err.data?.code === 'CONFLICT') {
         toast.error(
           'This email is already in use. Sign in instead?'
-        )
+        );
 
-        return
+        return;
       }
 
       if (err instanceof ZodError) {
         toast.error(err.issues[0].message)
 
-        return
+        return;
       }
 
       toast.error(
         'Something went wrong. Please try again.'
-      )
+      );
     },
   });
 
