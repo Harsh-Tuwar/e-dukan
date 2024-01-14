@@ -18,8 +18,11 @@ import Link from 'next/link';
 import { AuthCredentialsValidator, TAuthCredentialsValidator } from '@/lib/validators/account-credentials-validator';
 import { trpc } from '@/trpc/client';
 import { ZodError } from 'zod';
+import { useRouter } from 'next/navigation';
 
 const SignupPage = () => {
+  const router = useRouter();
+  
   const {
     register,
     handleSubmit,
@@ -47,6 +50,12 @@ const SignupPage = () => {
       toast.error(
         'Something went wrong. Please try again.'
       );
+    },
+    onSuccess: ({ sentToEmail }) => {
+      toast.success(
+        `Verification email sent to ${sentToEmail}.`
+      )
+      router.push('/verify-email?to=' + sentToEmail)
     },
   });
 
@@ -85,6 +94,11 @@ const SignupPage = () => {
                       'focus-visible:ring-red-500': errors.email
                     })}
                   />
+                  {errors?.email && (
+                    <p className='text-sm text-red-500'>
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid gap-1 py-2">
@@ -97,6 +111,11 @@ const SignupPage = () => {
                       'focus-visible:ring-red-500': errors.password
                     })}
                   />
+                  {errors?.password && (
+                    <p className='text-sm text-red-500'>
+                      {errors.password.message}
+                    </p>
+                  )}
                 </div>
 
                 <Button>Sign up</Button>
