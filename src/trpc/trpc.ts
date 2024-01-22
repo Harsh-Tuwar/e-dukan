@@ -1,4 +1,4 @@
-import { ExpressContext } from '@/server';
+import { ExpressContext } from '../server';
 import { initTRPC } from '@trpc/server';
 
 const t = initTRPC.context<ExpressContext>().create();

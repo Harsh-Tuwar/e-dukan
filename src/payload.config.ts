@@ -5,6 +5,10 @@ import { webpackBundler } from '@payloadcms/bundler-webpack';
 import path from 'path';
 
 import { Users } from './collections/Users';
+import { Media } from './collections/Media';
+import { Orders } from './collections/Orders';
+import { ProductFiles } from './collections/ProductFile';
+import { Products } from './collections/Products/Products';
 
 import dotenv from 'dotenv';
 
@@ -14,7 +18,7 @@ dotenv.config({
 
 export default buildConfig({
 	serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-	collections: [Users],
+	collections: [Users, Products, Media, ProductFiles, Orders],
 	routes: {
 		admin: '/admin'
 	},
