@@ -24,18 +24,18 @@ import {
 } from '@/components/ui/button';
 
 const Page = () => {
-	const searchParams = useSearchParams()
-	const router = useRouter()
-	const isSeller = searchParams.get('as') === 'seller'
-	const origin = searchParams.get('origin')
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const origin = searchParams.get('origin');
+	const isSeller = searchParams.get('as') === 'seller';
 
 	const continueAsSeller = () => {
-		router.push('?as=seller')
-	}
+		router.push('?as=seller');
+	};
 
 	const continueAsBuyer = () => {
-		router.replace('/sign-in', undefined)
-	}
+		router.replace('/sign-in', undefined);
+	};
 
 	const {
 		register,
@@ -43,30 +43,29 @@ const Page = () => {
 		formState: { errors },
 	} = useForm<TAuthCredentialsValidator>({
 		resolver: zodResolver(AuthCredentialsValidator),
-	})
+	});
 
 	const { mutate: signIn, isLoading } =
 		trpc.auth.signIn.useMutation({
 			onSuccess: async () => {
-				toast.success('Signed in successfully')
-
-				router.refresh()
+				toast.success('Signed in successfully');
 
 				if (origin) {
-					router.push(`/${origin}`)
-					return
+					router.push(`/${origin}`);
+					return;
 				}
 
 				if (isSeller) {
-					router.push('/sell')
-					return
+					router.push('/sell');
+					return;
 				}
 
-				router.push('/')
+				router.push('/');
+				router.refresh();
 			},
 			onError: (err) => {
 				if (err.data?.code === 'UNAUTHORIZED') {
-					toast.error('Invalid email or password.')
+					toast.error('Invalid email or password.');
 				}
 			},
 		})
@@ -75,7 +74,7 @@ const Page = () => {
 		email,
 		password,
 	}: TAuthCredentialsValidator) => {
-		signIn({ email, password })
+		signIn({ email, password });
 	}
 
 	return (
