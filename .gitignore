@@ -30,6 +30,7 @@ yarn-error.log*
 .env
 
 product_files/*
+media/*
 
 # vercel
 .vercel
