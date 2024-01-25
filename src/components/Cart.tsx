@@ -16,7 +16,7 @@ import {
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
-} from './ui/sheet'
+} from './ui/sheet';
 
 import { formatPrice } from '@/lib/utils';
 import { useCart } from '@/hooks/use-cart'
@@ -24,21 +24,21 @@ import { useCart } from '@/hooks/use-cart'
 import CartItem from './CartItem';
 
 const Cart = () => {
-	const { items } = useCart()
-	const itemCount = items.length
+	const { items } = useCart();
+	const itemCount = items.length;
 
-	const [isMounted, setIsMounted] = useState<boolean>(false)
+	const [isMounted, setIsMounted] = useState<boolean>(false);
 
 	useEffect(() => {
 		setIsMounted(true)
-	}, [])
+	}, []);
 
 	const cartTotal = items.reduce(
 		(total, { product }) => total + product.price,
 		0
-	)
+	);
 
-	const fee = 1
+	const fee = 1;
 
 	return (
 		<Sheet>

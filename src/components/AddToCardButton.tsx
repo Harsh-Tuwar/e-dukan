@@ -12,8 +12,9 @@ const AddToCartButton = ({
 }: {
 	product: Product
 }) => {
-	const { addItem } = useCart();
+	const { addItem, items } = useCart();
 	const [isSuccess, setIsSuccess] = useState<boolean>(false);
+	const [alreadyAdded, setAlreadyAdded] = useState<boolean>(false);
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
@@ -23,15 +24,20 @@ const AddToCartButton = ({
 		return () => clearTimeout(timeout);
 	}, [isSuccess]);
 
+	useEffect(() => {
+		setAlreadyAdded(!!items.find((i) => i.product.id === product.id));
+	}, [isSuccess, items]);
+
 	return (
 		<Button
 			onClick={() => {
 				addItem(product)
 				setIsSuccess(true)
 			}}
+			disabled={alreadyAdded}
 			size='lg'
 			className='w-full'>
-			{isSuccess ? 'Added!' : 'Add to cart'}
+			{isSuccess || alreadyAdded ? 'Added!' : 'Add to cart'}
 		</Button>
 	);
 }
